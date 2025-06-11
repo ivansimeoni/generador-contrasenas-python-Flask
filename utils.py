@@ -52,21 +52,24 @@ def desencriptar_contraseña(clave):
 
 # Guarda la contraseña encriptada junto con el nombre y usuario en la base de datos
 def guardar_contraseña(token_encriptado, nombre, usuario):
-    with sqlite3.connect("datos.db") as conexion:
-        cursor = conexion.cursor()
-        # Crea la tabla si no existe
-        cursor.execute('''
-                        CREATE TABLE IF NOT EXISTS claves (
-                        id INTEGER PRIMARY KEY AUTOINCREMENT,
-                        Nombre TEXT,
-                        Usuario TEXT,
-                        Contraseña BINARY
-                        )
-        ''')
-        # Inserta los datos en la tabla
-        conexion.execute("insert into claves(Nombre, Usuario, Contraseña) values (?,?,?)", (nombre, usuario, token_encriptado))
-        conexion.commit()
-        
+    try:
+        with sqlite3.connect("datos.db") as conexion:
+            cursor = conexion.cursor()
+            # Crea la tabla si no existe
+            cursor.execute('''
+                            CREATE TABLE IF NOT EXISTS claves (
+                            id INTEGER PRIMARY KEY AUTOINCREMENT,
+                            Nombre TEXT,
+                            Usuario TEXT,
+                            Contraseña BINARY
+                            )
+            ''')
+            # Inserta los datos en la tabla
+            conexion.execute("insert into claves(Nombre, Usuario, Contraseña) values (?,?,?)", (nombre, usuario, token_encriptado))
+            conexion.commit()
+            return "Datos guardados"
+    except Exception as e:
+        return f"Error al guardar los datos {e}"
     
 # Muestra todas las contraseñas almacenadas desencriptándolas
 def mostrar_contraseña():
