@@ -3,6 +3,9 @@
 
 Este proyecto es una evolución del gestor de contraseñas en consola, ahora con una interfaz web construida con Flask. Conserva la lógica de seguridad, cifrado y validación del proyecto original, pero ofrece una experiencia más visual e interactiva.
 
+🔗 Proyecto original en consola:
+https://github.com/ivansimeoni/generador-contrasenas-python-SQLite
+
 ## Características
 
 - Generación de contraseñas seguras con múltiples requisitos.
