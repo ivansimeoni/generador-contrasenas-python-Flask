@@ -1,19 +1,3 @@
-# Gestor de Contraseñas en Python
-
-Este proyecto es un gestor de contraseñas simple que permite generar, almacenar, mostrar y eliminar contraseñas de manera segura utilizando cifrado simétrico con `Fernet` (de `cryptography`) para proteger las contraseñas y una base de datos local `SQLite` para guardar los datos.
-
-
-
----
-
-
-
-
-
----
-
-
-
 
 # Gestor de Contraseñas en Python
 
@@ -68,7 +52,7 @@ pip install flask cryptography email_validator
 
 ## Ejemplo de uso
 
-1. Ingresa a [http://localhost:5000](http://localhost:5000) en tu navegador después de ejecutar la app.
+1. Ingresa a [http://localhost:5000](http://localhost:5000) en tu navegador después de ejecutar la `app.py`.
 2. Verás una interfaz con las siguientes opciones:
    - **Generar nueva contraseña:** Elige la longitud y genera una contraseña segura.
    - **Guardar nueva contraseña:** Ingresa el servicio y email.
@@ -109,7 +93,7 @@ El repositorio contiene los siguientes archivos:
   - Mejoras en la experiencia de usuario: formularios web, mensajes de confirmación y error.
   - Visualización y eliminación de contraseñas desde la web.
   - Validación de email en el formulario.
-  - Código modularizado en `utils.py` y uso de plantillas HTML.
+  - Código modularizado en `utils.py` y uso de plantillas HTML dinámicas.
   
 
 - **v1.0:**  
