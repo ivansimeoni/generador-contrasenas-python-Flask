@@ -75,18 +75,21 @@ def guardar_contraseña(token_encriptado, nombre, usuario):
 def mostrar_contraseña():
     # Comprueba que la base de datos existe
     if Path("datos.db").exists():
-        with sqlite3.connect("datos.db") as conexion:
-            cursor = conexion.cursor()
-            cursor.execute("SELECT Nombre, Usuario, Contraseña FROM claves")
-            resultado = cursor.fetchall()
+        try:
+            with sqlite3.connect("datos.db") as conexion:
+                cursor = conexion.cursor()
+                cursor.execute("SELECT Nombre, Usuario, Contraseña FROM claves")
+                resultado = cursor.fetchall()
 
-            datos = []
-            for fila in range(0, len(resultado)):
-                nombre = resultado[fila][0]
-                usuario = resultado[fila][1]
-                descifrado = desencriptar_contraseña(resultado[fila][2]).decode()
-                datos.append((nombre, usuario, descifrado))
-            return datos
+                datos = []
+                for fila in range(0, len(resultado)):
+                    nombre = resultado[fila][0]
+                    usuario = resultado[fila][1]
+                    descifrado = desencriptar_contraseña(resultado[fila][2]).decode()
+                    datos.append((nombre, usuario, descifrado))
+                return datos
+        except Exception as e:
+            return f"Error inesperado al intentar mostrar las claves:{e}"
     else:
         return []
 
@@ -101,14 +104,17 @@ def validar_email(email):
 # Elimina un registro de la base de datos
 def eliminar_registro(identificador):
     if Path("datos.db").exists():
-        with sqlite3.connect("datos.db") as conexion:
-            cursor = conexion.cursor()
-            cursor.execute("DELETE FROM claves WHERE Nombre = ?", (identificador, ))
-            conexion.commit()
-            
-            if cursor.rowcount > 0:
-                return "Registro del servicio eliminado."
-            else:
-                return "No se encontró ningún servicio con ese nombre."
+        try:    
+            with sqlite3.connect("datos.db") as conexion:
+                cursor = conexion.cursor()
+                cursor.execute("DELETE FROM claves WHERE Nombre = ?", (identificador, ))
+                conexion.commit()
+                
+                if cursor.rowcount > 0:
+                    return "Registro del servicio eliminado."
+                else:
+                    return "No se encontró ningún servicio con ese nombre."
+        except Exception as e:
+            return f"Error inesperado al intentar eliminar el registro:{e}"
     else:
         return "NO existen datos guardados. Por favor, cree y guarde una clave."
